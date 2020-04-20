@@ -48,7 +48,9 @@ if(isset($_POST["submit"]) and $_POST["user"]) {
     
     $InputChannel = array();
     $InputChannel = $_POST["added"];
-                    
+
+    $access_level = $_POST["mapacc"];
+
     // NEW USER OR UPDATE
     $check = $mysqli->query("SELECT * FROM ".$tbl." WHERE TelegramUser = '".$newUser."' ");
     $row_cnt = $check->num_rows;
@@ -207,6 +209,21 @@ if(isset($_POST["submit"]) and $_POST["user"]) {
           foreach ( $mysqli->query("SELECT * FROM channels ORDER BY name ASC") as $channel ) {
             echo "<tr>";
             echo "<td>".$channel["name"]."</td><td valign='top'>beitreten <input type='checkbox' name='added[]' value='".$channel["id"]."' checked='checked' /></td>";
+            echo "</tr>";
+          }
+          ?>
+      </table>
+    </div>
+<br><br>
+    <div>
+      <table>
+        <tr>
+          <td colspan="2"><b>Map-Access:</b><br></td>
+        </tr>
+          <?php
+          foreach ( $mysqli->query("SELECT * FROM map_access ORDER BY access_level ASC") as $mapzugriff ) {
+            echo "<tr>";
+            echo "<td>".$mapzugriff["Access"]."</td><td valign='top'> zuordnen <input type='radio' name='mapacc' value='".$mapzugriff["access_level"]."' /></td>";
             echo "</tr>";
           }
           ?>
